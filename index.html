@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>AR Code-Verse</title>
+    <meta name="description" content="AR Code-Verse - Visualize your code in 3D">
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/esprima@~4.0/dist/esprima.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dom-parser@1.1.5/dist/dom-parser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.10.8/brython.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.10.8/brython_stdlib.js"></script>
+    <script src="https://unpkg.com/aframe-orbit-controls@1.3.0/dist/aframe-orbit-controls.min.js"></script>
+    <script src="cparse.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chevrotain/lib/chevrotain.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/java-parser/lib/index.js"></script>
+    <script src="ruby-parser.js"></script>
+    <script src="https://unpkg.com/super-hands@^3.0.5/dist/super-hands.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/escodegen/2.1.0/escodegen.browser.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload="brython()">
+    <div class="code-input-container">
+        <h2>Your Code</h2>
+        <div class="language-selector-container">
+            <label for="language-select">Language:</label>
+            <select id="language-select">
+                <option value="javascript">JavaScript</option>
+                <option value="html">HTML</option>
+                <option value="python">Python</option>
+                <option value="css">CSS</option>
+                <option value="c_cpp">C/C++</option>
+                <option value="java">Java</option>
+                <option value="ruby">Ruby</option>
+                <option value="nodejs">Node.js</option>
+            </select>
+        </div>
+        <textarea id="code-input">function hello() { console.log("World"); }</textarea>
+        <button id="visualize-btn">Visualize</button>
+        <div class="file-upload-container">
+            <label for="file-upload" class="file-upload-label">Or upload a file</label>
+            <input type="file" id="file-upload" accept=".js,.html,.py,.css,.c,.cpp,.java,.rb">
+        </div>
+    </div>
+    
+    <div id="loader" class="loader-container" style="display: none;">
+        <div class="loader"></div>
+    </div>
+
+    <a-scene>
+        <a-light type="ambient" color="#888"></a-light>
+        <a-light type="directional" position="1 1 0" intensity="0.5"></a-light>
+        <a-entity camera look-controls orbit-controls="target: 0 3 -8; initialPosition: 0 5 0; enableDamping: true; dampingFactor: 0.25">
+            <a-entity super-hands
+                hand-controls="hand: right; handModelStyle: lowPoly; color: #ffcccc"
+                raycaster="objects: [grabbable];"
+                droppable=""></a-entity>
+            <a-entity cursor="rayOrigin: mouse" raycaster="objects: .clickable; interval: 150; recursive: false"></a-entity>
+        </a-entity>
+        <a-sky color="#121212"></a-sky>
+    </a-scene>
+
+    <div id="details-panel">
+        <div id="details-content"></div>
+        <button id="close-button">Close</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "name": "ar-code-verse",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AR Code-Verse - Visualize your code in 3D",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "start:prod": "pm2 start server.js --no-daemon"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "pm2": "^5.3.0"
+  }
+} 
